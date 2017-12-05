@@ -6,5 +6,6 @@ When specifying command line arguments, the string `{{rom}}` is replaced with th
 
 ![UI Image](docs/example.png)
 
-#### TODO
-- [ ] Remove need for XNA for gamepad support
+#### Requirements
+
+`Microsoft.Xna.Framework` `4.0.0` is required for the controller connectivity dots to update.
