@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace NewEmulatorFrontEnd {
+namespace EmulatorFrontEnd {
     // Information about a rom
     public class Rom {
         static Regex parenRegex = new Regex("\\(.*\\)");
@@ -8,11 +8,7 @@ namespace NewEmulatorFrontEnd {
         public string location { get; private set; }
         public Console console { get; private set; }
 
-        string ds = "";
-        public string displayName {
-            get { return ds; }
-            set { ds = value; }
-        }
+        public string displayName = "";
         public string tags = "";
         public int players = -1;
 

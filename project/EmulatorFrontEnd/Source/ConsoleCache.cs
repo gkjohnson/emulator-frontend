@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace NewEmulatorFrontEnd {
+namespace EmulatorFrontEnd {
     static class ConsoleCache {
         // Parsing Constants
         const string CONSOLE_CMD_FILE = "consoleCmd.txt";

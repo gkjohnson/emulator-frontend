@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace NewEmulatorFrontEnd
+namespace EmulatorFrontEnd
 {
     public partial class RomSettings : Form
     {

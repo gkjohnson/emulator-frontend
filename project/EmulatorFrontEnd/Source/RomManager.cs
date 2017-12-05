@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace NewEmulatorFrontEnd {
+namespace EmulatorFrontEnd {
     public static class RomManager {
         // Emulator Process Management
         public static bool RunEmulator(Rom r) { return EmulatorExecuter.Run(r); }

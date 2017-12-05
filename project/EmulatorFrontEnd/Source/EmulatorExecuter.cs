@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace NewEmulatorFrontEnd {
+namespace EmulatorFrontEnd {
     static class EmulatorExecuter {
         const string ROM_TOKEN = "{{rom}}";
 

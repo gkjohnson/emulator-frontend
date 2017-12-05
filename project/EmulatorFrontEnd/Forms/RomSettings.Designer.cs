@@ -1,4 +1,4 @@
-﻿namespace NewEmulatorFrontEnd
+﻿namespace EmulatorFrontEnd
 {
     partial class RomSettings
     {

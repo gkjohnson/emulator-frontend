@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NewEmulatorFrontEnd
+namespace EmulatorFrontEnd
 {
     public partial class SettingsForm : Form
     {

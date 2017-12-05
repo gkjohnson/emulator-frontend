@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
-namespace NewEmulatorFrontEnd {
+namespace EmulatorFrontEnd {
     // middleman used to update the front end with data from the RomManager
     class FrontEndUpdater {
         // loads the consoles into the combobox

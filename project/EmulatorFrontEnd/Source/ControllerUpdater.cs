@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Input;
 
-namespace NewEmulatorFrontEnd {
+namespace EmulatorFrontEnd {
     class ControllerUpdater {
         public static void UpdateDots(Label[] dots) {
             for (int i = 0; i < 4; i++) {
