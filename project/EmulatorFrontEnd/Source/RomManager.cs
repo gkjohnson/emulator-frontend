@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace NewEmulatorFrontEnd
-{
-    public static class RomManager
-    {
+namespace NewEmulatorFrontEnd {
+    public static class RomManager {
         // Emulator Process Management
         public static bool RunEmulator(Rom r) { return EmulatorExecuter.Run(r); }
         public static bool RunEmulator(string consoleName) { return EmulatorExecuter.Run(ConsoleCache.GetConsole(consoleName)); }

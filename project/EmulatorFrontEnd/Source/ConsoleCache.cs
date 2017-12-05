@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace NewEmulatorFrontEnd
-{
-    static class ConsoleCache
-    {
+namespace NewEmulatorFrontEnd {
+    static class ConsoleCache {
         // Parsing Constants
-        const string CONSOLE_CMD_FILE           = "consoleCmd.txt";
-        const string ROM_SETTINGS_FILE          = "romSettings.txt";
-        const string SEPERATOR_TOKEN            = "|";
-        static readonly string[] ILLEGAL_EXT    = { ".wbf1" };
+        const string CONSOLE_CMD_FILE = "consoleCmd.txt";
+        const string ROM_SETTINGS_FILE = "romSettings.txt";
+        const string SEPERATOR_TOKEN = "|";
+        static readonly string[] ILLEGAL_EXT = { ".wbf1" };
 
         // Cached Data
         static Dictionary<string, Console> _consoles = new Dictionary<string, Console>();
@@ -29,13 +27,11 @@ namespace NewEmulatorFrontEnd
         public static Console GetConsole(string console) { return _consoles.ContainsKey(console) ? _consoles[console] : null; }
 
         #region API
-        public static void Load()
-        {
+        public static void Load() {
             Refresh();
         }
 
-        public static void Refresh()
-        {
+        public static void Refresh() {
             _consoles.Clear();
             _roms.Clear();
             _consoleRoms.Clear();
@@ -46,9 +42,8 @@ namespace NewEmulatorFrontEnd
             LoadConsoles();
             LoadRoms();
         }
-        
-        public static void Save(List<Console> consoles = null)
-        {
+
+        public static void Save(List<Console> consoles = null) {
             SaveConsoleDirectories(consoles);
             SaveRomSettings();
 
@@ -58,40 +53,36 @@ namespace NewEmulatorFrontEnd
 
         #region Load Functions
         // Load all Console information
-        static void LoadConsoles()
-        {
+        static void LoadConsoles() {
             if (!File.Exists(CONSOLE_CMD_FILE)) return;
 
             string[] lines = File.ReadAllLines(CONSOLE_CMD_FILE);
             string[] splitChars = new string[] { SEPERATOR_TOKEN };
 
-            foreach (string s in lines)
-            {
+            foreach (string s in lines) {
                 // Format
                 // displayName | execPath | cmdArgs | romDir
 
                 string[] split = s.Split(splitChars, StringSplitOptions.None);
 
 
-                string name =       split.Length >= 1 ? split[0] : "";
-                string execPath =   split.Length >= 2 ? split[1] : "";
-                string cmdArgs =    split.Length >= 3 ? split[2] : "";
-                string romDir =     split.Length >= 4 ? split[3] : "";
+                string name = split.Length >= 1 ? split[0] : "";
+                string execPath = split.Length >= 2 ? split[1] : "";
+                string cmdArgs = split.Length >= 3 ? split[2] : "";
+                string romDir = split.Length >= 4 ? split[3] : "";
 
                 Console console = new Console(execPath, name, cmdArgs, romDir);
-                
+
                 if (_consoles.ContainsKey(console.displayName)) continue;
-                
+
                 _consoles.Add(console.displayName, console);
                 _consoleList.Add(console);
             }
         }
 
         // Load the roms associated with the loaded consoles
-        static void LoadRoms()
-        {
-            foreach (var kv in _consoles)
-            {
+        static void LoadRoms() {
+            foreach (var kv in _consoles) {
                 Console console = kv.Value;
                 List<Rom> roms = new List<Rom>();
                 _consoleRoms.Add(console, roms);
@@ -100,16 +91,14 @@ namespace NewEmulatorFrontEnd
                 if (!Directory.Exists(dir)) continue;
 
                 string[] files = Directory.GetFiles(dir, "*", SearchOption.AllDirectories);
-                foreach (var location in files)
-                {
+                foreach (var location in files) {
                     Rom rom = new Rom(location, console);
 
                     // TODO: Ensure this rom hasn't been added
 
                     // Ensure we're not using an illegal extension
                     bool illegalExtension = false;
-                    foreach (string ext in ILLEGAL_EXT)
-                    {
+                    foreach (string ext in ILLEGAL_EXT) {
                         illegalExtension |= rom.fileName.ToLower().Contains(ext);
                     }
 
@@ -126,33 +115,28 @@ namespace NewEmulatorFrontEnd
         }
 
         // Load the extra settings from file
-        static void LoadRomSettings()
-        {
+        static void LoadRomSettings() {
             if (!File.Exists(ROM_SETTINGS_FILE)) return;
 
             string[] lines = File.ReadAllLines(ROM_SETTINGS_FILE);
 
-            foreach(string line in lines)
-            {
+            foreach (string line in lines) {
                 // Format
                 // fileName | displayName | tags | players
                 string[] param = line.Split(new string[] { SEPERATOR_TOKEN }, StringSplitOptions.None);
 
-                try
-                {
-                    string fileName     = param[0].Trim();
-                    string displayName  = param[1].Trim();
-                    string tags         = param[2].Trim();
-                    string players      = param[3].Trim();
+                try {
+                    string fileName = param[0].Trim();
+                    string displayName = param[1].Trim();
+                    string tags = param[2].Trim();
+                    string players = param[3].Trim();
 
                     Rom rom = _roms[fileName];
 
                     if (displayName != "") rom.displayName = displayName;
                     rom.tags = tags;
                     if (players != "") rom.players = int.Parse(players);
-                }
-                catch
-                {
+                } catch {
                     continue;
                 }
             }
@@ -161,13 +145,11 @@ namespace NewEmulatorFrontEnd
 
         #region Save Functions
         // Save the state of the console settings
-        static void SaveConsoleDirectories(List<Console> consoles = null)
-        {
+        static void SaveConsoleDirectories(List<Console> consoles = null) {
             if (consoles == null) consoles = _consoleList;
 
             string s = "";
-            foreach(var kv in _consoles)
-            {
+            foreach (var kv in _consoles) {
                 Console c = kv.Value;
 
                 if (c.displayName + c.executableDirectory + c.executableName + c.cmdArguments + c.romDirectory == "") continue;
@@ -183,12 +165,10 @@ namespace NewEmulatorFrontEnd
         }
 
         // Save the rom settings
-        static void SaveRomSettings()
-        {
+        static void SaveRomSettings() {
             string s = "";
 
-            foreach(var kv in _roms)
-            {
+            foreach (var kv in _roms) {
                 Rom rom = kv.Value;
 
                 bool nameChanged = rom.displayName != rom.name && rom.displayName != "";

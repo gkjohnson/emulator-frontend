@@ -2,10 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace NewEmulatorFrontEnd
-{
-    static class EmulatorExecuter
-    {
+namespace NewEmulatorFrontEnd {
+    static class EmulatorExecuter {
         const string ROM_TOKEN = "{{rom}}";
 
         // User32.dll functions        
@@ -22,18 +20,15 @@ namespace NewEmulatorFrontEnd
 
         #region API
         // Run a console or a rom
-        public static bool Run(Rom rom)
-        {
+        public static bool Run(Rom rom) {
             return Run(rom.console, rom.console.cmdArguments.Replace("{{rom}}", rom.location));
         }
 
-        public static bool Run(Console console, string args = "")
-        {
+        public static bool Run(Console console, string args = "") {
             return Run(console.executableName, console.executableDirectory, args);
         }
 
-        static bool Run(string fileName, string workDir, string args = "")
-        {
+        static bool Run(string fileName, string workDir, string args = "") {
             if (IsRunning) return false;
 
             ProcessStartInfo processInfo = new ProcessStartInfo();
@@ -42,12 +37,9 @@ namespace NewEmulatorFrontEnd
             processInfo.Arguments = args;
             processInfo.CreateNoWindow = true;
 
-            try
-            {
+            try {
                 _running = Process.Start(processInfo);
-            }
-            catch
-            {
+            } catch {
                 _running = null;
             }
 
@@ -55,8 +47,7 @@ namespace NewEmulatorFrontEnd
         }
 
         // Quit the current emulator
-        public static bool Stop(bool force = false)
-        {
+        public static bool Stop(bool force = false) {
             if (!IsRunning) return false;
 
             // if the foreground process is not the emulator
@@ -67,8 +58,7 @@ namespace NewEmulatorFrontEnd
             if (
                 currProcessid != _running.Id &&
                 currProcessid != Process.GetCurrentProcess().Id &&
-                !force)
-            {
+                !force) {
                 return false;
             }
 

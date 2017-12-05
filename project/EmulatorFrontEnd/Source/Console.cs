@@ -1,45 +1,31 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace NewEmulatorFrontEnd
-{
+namespace NewEmulatorFrontEnd {
     // Information about a rom
-    public class Rom
-    {
+    public class Rom {
         static Regex parenRegex = new Regex("\\(.*\\)");
 
         public string location { get; private set; }
         public Console console { get; private set; }
 
         string ds = "";
-        public string displayName
-        {
-            get
-            {
-                return ds;
-            }
-            set
-            {
-                // System.Console.WriteLine("CHANGED TO : " + value);
-                ds = value;
-            }
+        public string displayName {
+            get { return ds; }
+            set { ds = value; }
         }
         public string tags = "";
-        public int players = -1;         
+        public int players = -1;
 
-        public string fileName
-        {
-            get
-            {
+        public string fileName {
+            get {
                 int lastTokenStart = location.LastIndexOf('\\');
                 int fileNameLength = location.Length - lastTokenStart - 1;
                 return location.Substring(lastTokenStart + 1, fileNameLength);
             }
         }
 
-        public string name
-        {
-            get
-            {
+        public string name {
+            get {
                 string name = fileName;
 
                 // Remove the file extension
@@ -56,8 +42,7 @@ namespace NewEmulatorFrontEnd
         }
 
         // Constructor
-        public Rom(string location, Console console)
-        {
+        public Rom(string location, Console console) {
             this.console = console;
 
             this.location = location;
@@ -68,17 +53,14 @@ namespace NewEmulatorFrontEnd
     }
 
     // Information about the game console
-    public class Console
-    {
+    public class Console {
         public string location { get; private set; }
         public string displayName { get; private set; }
         public string cmdArguments { get; private set; }
         public string romDirectory { get; private set; }
 
-        public string executableName
-        {
-            get
-            {
+        public string executableName {
+            get {
                 string name = location;
 
                 int lastSlash = name.LastIndexOf('\\');
@@ -88,10 +70,8 @@ namespace NewEmulatorFrontEnd
             }
         }
 
-        public string executableDirectory
-        {
-            get
-            {
+        public string executableDirectory {
+            get {
                 string dir = location;
 
                 int lastSlash = dir.LastIndexOf('\\');
@@ -102,8 +82,7 @@ namespace NewEmulatorFrontEnd
         }
 
         // Constructor
-        public Console(string location, string name, string args, string romDir)
-        {
+        public Console(string location, string name, string args, string romDir) {
             this.location = location;
             this.displayName = name;
             this.cmdArguments = args;
