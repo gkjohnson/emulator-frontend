@@ -3,11 +3,10 @@
 namespace EmulatorFrontEnd {
     // Information about a rom
     public class Rom {
-        static Regex parenRegex = new Regex("\\(.*\\)");
+        readonly Regex PAREN_REGEX = new Regex("\\(.*\\)");
 
         public string location { get; private set; }
         public Console console { get; private set; }
-
         public string displayName = "";
         public string tags = "";
         public int players = -1;
@@ -28,19 +27,12 @@ namespace EmulatorFrontEnd {
                 int nameLength = name.LastIndexOf('.');
                 if (nameLength > 0) name = name.Substring(0, nameLength);
 
-                // remove parenthetical parts of the name
-                name = parenRegex.Replace(name, "");
-
-                name = name.Trim();
-
-                return name;
+                return PAREN_REGEX.Replace(name, "").Trim();
             }
         }
 
-        // Constructor
         public Rom(string location, Console console) {
             this.console = console;
-
             this.location = location;
             this.displayName = name;
         }
@@ -77,12 +69,11 @@ namespace EmulatorFrontEnd {
             }
         }
 
-        // Constructor
-        public Console(string location, string name, string args, string romDir) {
+        public Console(string location, string displayName, string cmdArguments, string romDirectory) {
             this.location = location;
-            this.displayName = name;
-            this.cmdArguments = args;
-            this.romDirectory = romDir;
+            this.displayName = displayName;
+            this.cmdArguments = cmdArguments;
+            this.romDirectory = romDirectory;
         }
 
         public override string ToString() { return displayName; }

@@ -7,7 +7,7 @@ namespace EmulatorFrontEnd {
         public static bool RunEmulator(Rom r) { return EmulatorExecuter.Run(r); }
         public static bool RunEmulator(string consoleName) { return EmulatorExecuter.Run(ConsoleCache.GetConsole(consoleName)); }
         public static bool StopEmulator() { return EmulatorExecuter.Stop(); }
-        public static bool IsEmulatorRunning() { return EmulatorExecuter.IsRunning; }
+        public static bool IsEmulatorRunning() { return EmulatorExecuter.Running; }
 
         // Settings Save management
         public static void SaveOutNewConsoleDirectories(List<Console> consoles) { ConsoleCache.Save(consoles); }

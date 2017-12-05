@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace EmulatorFrontEnd {
-    // middleman used to update the front end with data from the RomManager
+    // Middleman used to update the front end with data from the RomManager
     class FrontEndUpdater {
-        // loads the consoles into the combobox
+        // Loads the consoles into the combobox
         public static void LoadConsoles(ComboBox cb) {
             int origIndex = cb.SelectedIndex;
 
@@ -32,8 +32,6 @@ namespace EmulatorFrontEnd {
             // get all search terms into an array
             string[] terms = filter.Split(new char[] { ',', ' ', '\t' });
             for (int i = 0; i < terms.Length; i++) terms[i] = terms[i].ToLower().Trim();
-
-            System.Console.WriteLine(roms.Count);
 
             // filter the games
             foreach (Rom r in roms) {

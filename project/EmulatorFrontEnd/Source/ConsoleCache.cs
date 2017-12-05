@@ -31,6 +31,8 @@ namespace EmulatorFrontEnd {
             Refresh();
         }
 
+        // Clears all cached roms and console and rereads
+        // the directories
         public static void Refresh() {
             _consoles.Clear();
             _roms.Clear();
@@ -43,6 +45,7 @@ namespace EmulatorFrontEnd {
             LoadRoms();
         }
 
+        // Save the list of consoles to the config
         public static void Save(List<Console> consoles = null) {
             SaveConsoleDirectories(consoles);
             SaveRomSettings();
@@ -64,8 +67,7 @@ namespace EmulatorFrontEnd {
                 // displayName | execPath | cmdArgs | romDir
 
                 string[] split = s.Split(splitChars, StringSplitOptions.None);
-
-
+                
                 string name = split.Length >= 1 ? split[0] : "";
                 string execPath = split.Length >= 2 ? split[1] : "";
                 string cmdArgs = split.Length >= 3 ? split[2] : "";
@@ -89,12 +91,10 @@ namespace EmulatorFrontEnd {
 
                 string dir = console.romDirectory.Replace(".\\", Directory.GetCurrentDirectory() + "\\");
                 if (!Directory.Exists(dir)) continue;
-
+                
                 string[] files = Directory.GetFiles(dir, "*", SearchOption.AllDirectories);
                 foreach (var location in files) {
                     Rom rom = new Rom(location, console);
-
-                    // TODO: Ensure this rom hasn't been added
 
                     // Ensure we're not using an illegal extension
                     bool illegalExtension = false;
@@ -134,8 +134,8 @@ namespace EmulatorFrontEnd {
                     Rom rom = _roms[fileName];
 
                     if (displayName != "") rom.displayName = displayName;
-                    rom.tags = tags;
                     if (players != "") rom.players = int.Parse(players);
+                    rom.tags = tags;
                 } catch {
                     continue;
                 }
